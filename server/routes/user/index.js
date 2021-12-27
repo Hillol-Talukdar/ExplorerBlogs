@@ -14,7 +14,7 @@ router.use(checkAuth);
 router
     .route("/")
     // .post(restrictTo("admin"), userController.addUser)
-    .get(userController.getAllUser);
+    .get(restrictTo("admin"), userController.getAllUser);
 
 router.route("/me").get(userController.getMe).patch(userController.updateMe);
 
