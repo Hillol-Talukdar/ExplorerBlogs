@@ -3,7 +3,16 @@ const catchAsync = require('../../utils/catchAsync');
 const factory = require('../handlers/handlerFactory');
 const AppError = require('../../utils/appError');
 
-const addComment = factory.createOne(Comment);
+const addComment = catchAsync(async (req, res, next) => {
+    req.body.author = req.user;
+
+    const doc = await Comment.create(req.body);
+
+    res.status(201).json({
+        status: 'Success',
+        data: doc,
+    });
+});
 
 const getAllComment = factory.getAll(Comment);
 
