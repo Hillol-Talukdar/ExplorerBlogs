@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const { ObjectId } = mongoose.Schema;
 
 const commentSchema = new mongoose.Schema(
@@ -10,10 +10,11 @@ const commentSchema = new mongoose.Schema(
         },
         author: {
             type: ObjectId,
-            ref: "User",
+            ref: 'User',
+            required: true,
         },
     },
     { timestamps: true }
 );
 
-module.exports = mongoose.model("Comment", commentSchema);
+module.exports = mongoose.model('Comment', commentSchema);

@@ -1,24 +1,54 @@
-const catchAsync = require('../../utils/catchAsync');
-const AppError = require('../../utils/appError');
-const APIFeatures = require('../../utils/apiFeatures');
+const catchAsync = require("../../utils/catchAsync");
+const AppError = require("../../utils/appError");
+const APIFeatures = require("../../utils/apiFeatures");
 
-exports.deleteOne = (Model) =>
+exports.deleteOneById = (Model) =>
     catchAsync(async (req, res, next) => {
         const doc = await Model.findByIdAndRemove(req.params.id);
 
         if (!doc) {
-            return next(new AppError('No document found with that id', 404));
+            return next(new AppError("No document found with that id", 404));
         }
 
         res.status(200).json({
-            status: 'Success',
+            status: "Success",
         });
     });
 
-exports.updateOne = (Model) =>
+exports.deleteOneBySlug = (Model) =>
+    catchAsync(async (req, res, next) => {
+        const doc = await Model.findOneAndRemove({ slug: req.params.slug });
+
+        if (!doc) {
+            return next(new AppError("No document found with that slug", 404));
+        }
+
+        res.status(200).json({
+            status: "Success",
+        });
+    });
+
+exports.updateOneById = (Model) =>
+    catchAsync(async (req, res, next) => {
+        const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+            runValidators: true,
+        });
+
+        if (!doc) {
+            return next(new AppError("No document found with that id", 404));
+        }
+
+        res.status(200).json({
+            status: "Success",
+            data: doc,
+        });
+    });
+
+exports.updateOneBySlug = (Model) =>
     catchAsync(async (req, res, next) => {
         const doc = await Model.findOneAndUpdate(
-            { _id: req.params.id },
+            { slug: req.params.slug },
             req.body,
             {
                 new: true,
@@ -27,14 +57,12 @@ exports.updateOne = (Model) =>
         );
 
         if (!doc) {
-            return next(new AppError('No document found with that id', 404));
+            return next(new AppError("No document found with that slug", 404));
         }
 
         res.status(200).json({
-            status: 'Success',
-            data: {
-                doc,
-            },
+            status: "Success",
+            data: doc,
         });
     });
 
@@ -43,12 +71,12 @@ exports.createOne = (Model) =>
         const doc = await Model.create(req.body);
 
         res.status(201).json({
-            status: 'Success',
+            status: "Success",
             data: doc,
         });
     });
 
-exports.getOne = (Model, populateOpitons) =>
+exports.getOneById = (Model, populateOpitons) =>
     catchAsync(async (req, res, next) => {
         let query = Model.findById(req.params.id);
 
@@ -59,14 +87,32 @@ exports.getOne = (Model, populateOpitons) =>
         const doc = await query;
 
         if (!doc) {
-            return next(new AppError('No document found with that id', 404));
+            return next(new AppError("No document found with that id", 404));
         }
 
         res.status(200).json({
-            status: 'Success',
-            data: {
-                doc,
-            },
+            status: "Success",
+            data: doc,
+        });
+    });
+
+exports.getOneBySlug = (Model, populateOpitons) =>
+    catchAsync(async (req, res, next) => {
+        let query = Model.findOne({ slug: req.params.slug });
+
+        if (populateOpitons) {
+            query = query.populate(populateOpitons);
+        }
+
+        const doc = await query;
+
+        if (!doc) {
+            return next(new AppError("No document found with that slug", 404));
+        }
+
+        res.status(200).json({
+            status: "Success",
+            data: doc,
         });
     });
 
@@ -83,7 +129,7 @@ exports.getAll = (Model, filterOptions) =>
         const doc = await features.query;
 
         res.status(200).json({
-            status: 'success',
+            status: "success",
             results: doc.length,
             data: doc,
         });
