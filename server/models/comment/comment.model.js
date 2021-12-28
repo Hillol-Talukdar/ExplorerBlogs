@@ -13,6 +13,11 @@ const commentSchema = new mongoose.Schema(
             ref: 'User',
             required: true,
         },
+        post: {
+            type: ObjectId,
+            ref: 'Comment',
+            required: true,
+        },
     },
     { timestamps: true }
 );

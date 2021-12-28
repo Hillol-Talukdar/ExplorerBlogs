@@ -21,6 +21,8 @@ const getAComment = factory.getOneById(Comment);
 const updateAComment = factory.updateOneById(Comment);
 
 const updateMyComment = catchAsync(async (req, res, next) => {
+    delete req.body.post;
+
     const comment = await Comment.findOneAndUpdate(
         { _id: req.params.id, author: req.user },
         req.body,
