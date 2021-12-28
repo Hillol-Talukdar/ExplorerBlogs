@@ -12,7 +12,8 @@ router
 router
     .route('/:id')
     .get(commentController.getAComment)
-    .patch(checkAuth, commentController.updateAComment)
-    .delete(checkAuth, commentController.deleteAComment);
+    .patch(checkAuth, commentController.updateMyComment)
+    .delete(checkAuth, restrictTo('admin'), commentController.deleteAComment)
+    .delete(checkAuth, commentController.deleteMyComment);
 
 module.exports = router;
