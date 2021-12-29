@@ -1,6 +1,11 @@
 import React from 'react';
 import { Card } from 'antd';
-import { ReadOutlined, MessageOutlined } from '@ant-design/icons';
+import {
+  ReadOutlined,
+  MessageTwoTone,
+} from '@ant-design/icons';
+
+import './PostListCard.css';
 
 const PostListCard = ({ post }) => {
   return (
@@ -13,12 +18,22 @@ const PostListCard = ({ post }) => {
           margin: 'auto',
           marginTop: 16,
         }}
+        className="postListCard"
         actions={[
-          <MessageOutlined key="comment" />,
-          <ReadOutlined key="readMore" />,
+          <MessageTwoTone key="comment" />,
+          <a href={`/post/${post._id}`}>
+            <ReadOutlined key="readMore" style={{ color: '#1890FF' }} />
+          </a>,
         ]}
       >
-        <p>{post.description}</p>
+        {post.description.length > 100 ? (
+          <>
+            <p>{post.description.substring(0, 300)}......</p>
+            <a>Read More</a>
+          </>
+        ) : (
+          <p>{post.description}</p>
+        )}
       </Card>
     </>
   );
