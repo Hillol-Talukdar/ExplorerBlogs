@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Menu } from 'antd';
 import { HomeOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import './TopNavbar.css';
 
 const { SubMenu } = Menu;
 
@@ -18,9 +19,16 @@ const TopNavbar = () => {
       selectedKeys={[current]}
       //   theme="dark"
       mode="horizontal"
+      // className="navbarTop"
+      style={{
+        margin: '10px auto',
+        boxShadow: '0px 2px 4px 0 rgba(0, 0, 0, 0.2)',
+        height: '100%',
+        transition: '0.3s',
+      }}
     >
       <Menu.Item key="home" icon={<HomeOutlined />}>
-      <Link to="/">Home</Link>
+        <Link to="/">Home</Link>
       </Menu.Item>
 
       <SubMenu

@@ -7,10 +7,16 @@ import './App.css';
 function App() {
   return (
     <>
-      <TopNavbar />
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-      </Switch>
+      <div className="wrapper">
+        <TopNavbar />
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+        </Switch>
+      </div>
+
+      <div className="footer">
+        <b>@Hillol Talukdar</b>, All rights reserved
+      </div>
     </>
   );
 }
