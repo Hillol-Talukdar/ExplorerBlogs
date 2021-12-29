@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PostListCard from '../card/PostListCard';
 
 const PostList = () => {

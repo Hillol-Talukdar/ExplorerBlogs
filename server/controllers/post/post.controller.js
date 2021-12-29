@@ -14,9 +14,9 @@ const addPost = catchAsync(async (req, res, next) => {
     });
 });
 
-const getAllPost = factory.getAll(Post);
+const getAllPost = factory.getAll(Post, { path: 'author', select: 'name' });
 
-const getPost = factory.getOneById(Post);
+const getPost = factory.getOneById(Post, { path: 'author', select: 'name' });
 
 const updateMyPost = catchAsync(async (req, res, next) => {
     delete req.body.post;
