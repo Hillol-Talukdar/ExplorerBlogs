@@ -25,17 +25,19 @@ const HomePage = () => {
   return (
     <>
       <PostContext.Provider value={contextValue}>
-        {loading ? (
-          <h3>loading</h3>
-        ) : error ? (
-          <h3>{error}</h3>
-        ) : (
-          <>
-            {posts.map((post) => (
-              <PostListCard post={post} />
-            ))}
-          </>
-        )}
+        <div className="container">
+          {loading ? (
+            <h3>loading</h3>
+          ) : error ? (
+            <h3>{error}</h3>
+          ) : (
+            <div>
+              {posts.map((post) => (
+                <PostListCard post={post} />
+              ))}
+            </div>
+          )}
+        </div>
       </PostContext.Provider>
     </>
   );

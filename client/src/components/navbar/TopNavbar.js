@@ -21,7 +21,8 @@ const TopNavbar = () => {
       mode="horizontal"
       // className="navbarTop"
       style={{
-        margin: '10px auto',
+        margin: '0px auto',
+        marginBottom: '10px',
         boxShadow: '0px 2px 4px 0 rgba(0, 0, 0, 0.2)',
         height: '100%',
         transition: '0.3s',
