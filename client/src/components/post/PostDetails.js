@@ -7,22 +7,23 @@ const PostDetails = ({ post }) => {
       <div className="p-3">
         <h2 className="postDetailsTitle">{post.title}</h2>
 
-        <div className="postDetailsAuthor">
-          <h6>
-            <b>Posted by:</b> {post.author?.name}
-          </h6>
+        <div className="d-flex flex-row postDetailsAuthor">
+          <div>Posted by:&nbsp;</div>
+          <div>
+            <b>{post.author?.name}</b>
+          </div>
         </div>
 
         <div className="d-flex justify-content-between mb-3">
           <div>
-            <b>Posted at:</b> {post.createdAt?.substr(11, 5)},{' '}
+            Posted at: {post.createdAt?.substr(11, 5)},{' '}
             {post.createdAt?.substr(0, 10)}
           </div>
 
           <div>,&nbsp;&nbsp;</div>
 
           <div>
-            <b>Last edit:</b> {post.updatedAt?.substr(11, 5)},{' '}
+            Last updated: {post.updatedAt?.substr(11, 5)},{' '}
             {post.updatedAt?.substr(0, 10)}
           </div>
         </div>

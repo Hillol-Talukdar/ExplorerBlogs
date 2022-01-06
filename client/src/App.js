@@ -7,9 +7,10 @@ import './App.css';
 
 function App() {
   return (
-    <>
-      <div className="wrapper">
+    <div className='flex-wrapper'>
+      <div>
         <TopNavbar />
+        
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/post/:id" component={PostDetailsPage} />
@@ -19,7 +20,7 @@ function App() {
       <div className="footer">
         <b>@Hillol Talukdar</b>, All rights reserved
       </div>
-    </>
+    </div>
   );
 }
 
