@@ -42,7 +42,10 @@ const PostDetailsPage = ({ match }) => {
               <PostDetails />
 
               <h5>Comments:</h5>
-              <CommentSectionCard />
+
+              {post.comments?.map((comment) => (
+                <CommentSectionCard key={comment._id} comment={comment} />
+              ))}
             </div>
           )}
         </div>
