@@ -6,6 +6,7 @@ import './PostDetailsPage.css';
 import PostDetailsContext from '../contexts/post/PostDetailsContext';
 import { getPostApi } from '../apis/postApis';
 import PostDetails from '../components/post/PostDetails';
+import CommentSectionCard from '../components/card/CommentSectionCard';
 
 const initialState = {
   post: {},
@@ -39,6 +40,9 @@ const PostDetailsPage = ({ match }) => {
           ) : (
             <div>
               <PostDetails post={post} />
+
+              <h5>Comments:</h5>
+              <CommentSectionCard post={post} />
             </div>
           )}
         </div>
