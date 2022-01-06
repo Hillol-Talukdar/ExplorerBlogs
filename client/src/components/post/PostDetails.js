@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import PostDetailsContext from '../../contexts/post/PostDetailsContext';
 import './PostDetails.css';
 
-const PostDetails = ({ post }) => {
+const PostDetails = () => {
+  const { post } = useContext(PostDetailsContext);
+
   return (
     <div className="postDetailsBody">
       <div className="p-3">

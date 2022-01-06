@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import PostDetailsContext from '../../contexts/post/PostDetailsContext';
 
-const CommentSectionCard = ({ post }) => {
+const CommentSectionCard = () => {
+  const { post } = useContext(PostDetailsContext);
+
   return <div>hello</div>;
 };
 

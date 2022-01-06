@@ -33,7 +33,7 @@ const HomePage = () => {
           ) : (
             <div>
               {posts.map((post) => (
-                <PostListCard post={post} />
+                <PostListCard key={post._id} post={post} />
               ))}
             </div>
           )}

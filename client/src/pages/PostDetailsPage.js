@@ -15,11 +15,11 @@ const initialState = {
 const PostDetailsPage = ({ match }) => {
   const [state, dispatch] = useReducer(postDetailsReducer, initialState);
 
-  const contextValue = {
-    post: state.posts,
-  };
-
   const { loading, post, error } = state;
+
+  const contextValue = {
+    post: post,
+  };
 
   useEffect(() => {
     getPostApi(match.params.id)(dispatch);
@@ -39,10 +39,10 @@ const PostDetailsPage = ({ match }) => {
             <h3>{error}</h3>
           ) : (
             <div>
-              <PostDetails post={post} />
+              <PostDetails />
 
               <h5>Comments:</h5>
-              <CommentSectionCard post={post} />
+              <CommentSectionCard />
             </div>
           )}
         </div>

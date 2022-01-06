@@ -15,11 +15,15 @@ const commentSchema = new mongoose.Schema(
         },
         post: {
             type: ObjectId,
-            ref: 'Comment',
+            ref: 'Post',
             required: true,
         },
     },
-    { timestamps: true }
+    {
+        timestamps: true,
+        toJSON: { virtuals: true },
+        toObject: { virtuals: true },
+    }
 );
 
 module.exports = mongoose.model('Comment', commentSchema);
