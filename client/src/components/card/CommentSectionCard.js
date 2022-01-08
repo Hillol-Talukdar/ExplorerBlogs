@@ -8,7 +8,6 @@ const CommentSectionCard = ({ comment }) => {
 
   return (
     <>
-      {/* <div>Hi</div> */}
       <Card
         title={comment.author?.name}
         extra={`${comment.createdAt?.substr(11, 5)}, ${comment.createdAt?.substr(0, 10)}`}

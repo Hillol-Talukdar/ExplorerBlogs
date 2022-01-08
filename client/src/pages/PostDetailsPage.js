@@ -2,11 +2,11 @@ import React, { useEffect, useReducer } from 'react';
 import { Button } from 'antd';
 import { Link } from 'react-router-dom';
 import { postDetailsReducer } from '../reducers/postReducer';
-import './PostDetailsPage.css';
 import PostDetailsContext from '../contexts/post/PostDetailsContext';
 import { getPostApi } from '../apis/postApis';
 import PostDetails from '../components/post/PostDetails';
-import CommentSectionCard from '../components/card/CommentSectionCard';
+import CommentSection from '../components/comment/CommentSection';
+import './PostDetailsPage.css';
 
 const initialState = {
   post: {},
@@ -30,7 +30,7 @@ const PostDetailsPage = ({ match }) => {
       <PostDetailsContext.Provider value={contextValue}>
         <div className="container">
           <Link to="/">
-            <Button className="postDetailsBackBtn">Go Back</Button>
+            <Button id="postDetailsBackBtn">Go Back</Button>
           </Link>
 
           {loading ? (
@@ -41,11 +41,7 @@ const PostDetailsPage = ({ match }) => {
             <div>
               <PostDetails />
 
-              <h5>Comments:</h5>
-
-              {post.comments?.map((comment) => (
-                <CommentSectionCard key={comment._id} comment={comment} />
-              ))}
+              <CommentSection />
             </div>
           )}
         </div>
