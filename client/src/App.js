@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import TopNavbar from './components/navbar/TopNavbar';
 import HomePage from './pages/HomePage';
 import PostDetailsPage from './pages/PostDetailsPage';
 import LoginPage from './pages/LoginPage';
-import './App.css';
 import AuthContext from './contexts/userAuth/AuthContext';
+import './App.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [token, setToken] = useState(
@@ -31,6 +33,7 @@ function App() {
         }}
       >
         <div>
+          <ToastContainer />
           <TopNavbar />
 
           <Switch>

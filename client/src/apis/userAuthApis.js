@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 import axios from 'axios';
 import {
   USER_LOGIN_REQUEST,
@@ -6,6 +5,7 @@ import {
   USER_LOGIN_FAIL,
   USER_LOGOUT,
 } from '../constants/userConstants';
+import { toast } from 'react-toastify';
 
 export const loginApi =
   (authcontext, userName, password) => async (dispatch) => {
@@ -33,8 +33,15 @@ export const loginApi =
 
       localStorage.setItem('userInfo', JSON.stringify(data));
       authcontext.login();
+      toast.success('Welcome to Explorer blog again!');
     } catch (error) {
-      console.log('ERRR: ', error);
+      // console.log('ERRR: ', error);
+      toast.error(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      );
+
       dispatch({
         type: USER_LOGIN_FAIL,
         payload:
@@ -44,3 +51,9 @@ export const loginApi =
       });
     }
   };
+
+export const logoutApi = (authContext) => (dispatch) => {
+  localStorage.removeItem('userInfo');
+  authContext.logout();
+  dispatch({ Type: USER_LOGOUT });
+};
