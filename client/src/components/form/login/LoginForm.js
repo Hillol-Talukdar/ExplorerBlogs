@@ -1,10 +1,32 @@
-import React from 'react';
+import React, { useContext, useEffect, useReducer, useState } from 'react';
 import { Form, Input, Button } from 'antd';
 import './LoginForm.css';
+import { loginReducer } from '../../../reducers/userReducer';
+import { loginApi } from '../../../apis/userAuthApis';
+import AuthContext from '../../../contexts/userAuth/AuthContext';
+
+const initialState = {
+  post: {},
+};
 
 const LoginForm = () => {
+  const [state, dispatch] = useReducer(loginReducer, initialState);
+  const authcontext = useContext(AuthContext);
+
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+
+  const { loading, error, userInfo } = state;
+
+  const contextValue = {
+    userInfo: userInfo,
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+  };
   const onFinish = (values) => {
-    console.log('Success:', values);
+    loginApi(authcontext, values.userName, values.password)(dispatch);
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -28,13 +50,14 @@ const LoginForm = () => {
           initialValues={{
             remember: true,
           }}
+          onSubmit={submitHandler}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
           <Form.Item
             label="Username/email"
-            name="name"
+            name="userName"
             rules={[
               {
                 required: true,
@@ -42,7 +65,10 @@ const LoginForm = () => {
               },
             ]}
           >
-            <Input />
+            <Input
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+            />
           </Form.Item>
 
           <Form.Item
@@ -55,7 +81,10 @@ const LoginForm = () => {
               },
             ]}
           >
-            <Input.Password />
+            <Input.Password
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </Form.Item>
 
           <Form.Item>

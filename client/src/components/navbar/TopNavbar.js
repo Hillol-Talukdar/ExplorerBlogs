@@ -9,6 +9,11 @@ const { SubMenu } = Menu;
 const TopNavbar = () => {
   const [current, setCurrent] = useState('home');
 
+  const userInfo = JSON.parse(localStorage.getItem('userInfo'))
+    ? JSON.parse(localStorage.getItem('userInfo'))
+    : '';
+  const { user } = userInfo;
+
   const handleClick = (e) => {
     setCurrent(e.key);
   };
@@ -17,30 +22,29 @@ const TopNavbar = () => {
     <Menu
       onClick={handleClick}
       selectedKeys={[current]}
-      //   theme="dark"
+      // theme="dark"
       mode="horizontal"
-      // className="navbarTop"
-      style={{
-        margin: '0px auto',
-        marginBottom: '10px',
-        boxShadow: '0px 2px 4px 0 rgba(0, 0, 0, 0.2)',
-        height: '100%',
-        transition: '0.3s',
-      }}
+      id="navbarTop"
     >
       <Menu.Item key="home" icon={<HomeOutlined />}>
         <Link to="/">Home</Link>
       </Menu.Item>
 
-      <SubMenu
-        key="userInfo"
-        icon={<UserOutlined />}
-        title="UserName"
-        style={{ marginLeft: 'auto' }}
-      >
-        <Menu.Item key="settingProfile">Profile</Menu.Item>
-        <Menu.Item key="settingLogout">Logout</Menu.Item>
-      </SubMenu>
+      {userInfo ? (
+        <SubMenu
+          key="userInfo"
+          icon={<UserOutlined />}
+          title={user.userName}
+          style={{ marginLeft: 'auto' }}
+        >
+          <Menu.Item key="settingProfile">Profile</Menu.Item>
+          <Menu.Item key="settingLogout">Logout</Menu.Item>
+        </SubMenu>
+      ) : (
+        <Menu.Item key="login" style={{ marginLeft: 'auto' }}>
+          <Link to="/login">Log in</Link>
+        </Menu.Item>
+      )}
     </Menu>
   );
 };
