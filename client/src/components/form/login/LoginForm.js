@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useReducer, useState } from 'react';
+import React, { useContext, useReducer, useState } from 'react';
 import { Form, Input, Button } from 'antd';
 import './LoginForm.css';
 import { loginReducer } from '../../../reducers/userReducer';
@@ -50,7 +50,7 @@ const LoginForm = () => {
           initialValues={{
             remember: true,
           }}
-          onSubmit={submitHandler}
+          // onSubmit={submitHandler}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"

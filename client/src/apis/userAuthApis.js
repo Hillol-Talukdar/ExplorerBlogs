@@ -31,7 +31,8 @@ export const loginApi =
         payload: data,
       });
 
-      localStorage.setItem('userInfo', JSON.stringify(data));
+      localStorage.setItem('userInfo', JSON.stringify(data.user));
+      localStorage.setItem('token', JSON.stringify(data.token));
       authcontext.login();
       toast.success('Welcome to Explorer blog again!');
     } catch (error) {
@@ -54,6 +55,7 @@ export const loginApi =
 
 export const logoutApi = (authContext) => (dispatch) => {
   localStorage.removeItem('userInfo');
+  localStorage.removeItem('token');
   authContext.logout();
   dispatch({ Type: USER_LOGOUT });
 };

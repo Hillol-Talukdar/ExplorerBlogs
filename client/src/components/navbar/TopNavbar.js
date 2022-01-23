@@ -19,7 +19,6 @@ const TopNavbar = () => {
   const userInfo = JSON.parse(localStorage.getItem('userInfo'))
     ? JSON.parse(localStorage.getItem('userInfo'))
     : '';
-  const { user } = userInfo;
 
   const handleClick = (e) => {
     setCurrent(e.key);
@@ -47,7 +46,7 @@ const TopNavbar = () => {
         <SubMenu
           key="userInfo"
           icon={<UserOutlined />}
-          title={user.userName}
+          title={userInfo.userName}
           style={{ marginLeft: 'auto' }}
         >
           <Menu.Item key="settingProfile">Profile</Menu.Item>
