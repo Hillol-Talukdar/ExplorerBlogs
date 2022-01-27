@@ -30,7 +30,7 @@ const LoginForm = () => {
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log('login Failed:', errorInfo);
   };
 
   return (

@@ -9,7 +9,6 @@ module.exports = async (req, res, next) => {
     if (
         req.headers.authorization &&
         req.headers.authorization.startsWith('Bearer')
-        && req.cookies.token
     ) {
         token = req.headers.authorization.split(' ')[1];
     } else if (req.cookies.jwt) {
@@ -18,7 +17,7 @@ module.exports = async (req, res, next) => {
 
     if (!token) {
         return next(
-            new AppError('You are not logged in! Please login to process!')
+            new AppError('You are not logged in! Please login to process!', 401)
         );
     }
 
@@ -30,7 +29,7 @@ module.exports = async (req, res, next) => {
     let freshUser = await User.findById(decoded.id);
 
     if (!freshUser) {
-        return next('User does not exist.', 401);
+        return next(new AppError('User does not exist.', 401));
     }
 
     req.user = freshUser;
