@@ -21,16 +21,13 @@ const CommentSection = () => {
     ? JSON.parse(localStorage.getItem('userInfo'))
     : '';
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-  };
-
   const onFinish = (values) => {
     addCommentApi(values.description, post._id)(dispatch);
+    window.location.reload();
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log('Comment create Failed:', errorInfo);
   };
 
   return (
@@ -45,7 +42,6 @@ const CommentSection = () => {
         <Form
           name="CommentForm"
           className="m-3"
-          onSubmit={submitHandler}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
         >
