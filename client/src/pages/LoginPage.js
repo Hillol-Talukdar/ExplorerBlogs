@@ -1,18 +1,18 @@
 import React, { useContext, useEffect } from 'react';
 import LoginForm from '../components/form/login/LoginForm';
-import AuthContext from '../contexts/userAuth/AuthContext';
 
 const LoginPage = ({ location, history }) => {
-  const authcontext = useContext(AuthContext);
-  const { token } = authcontext;
+  const userInfo = JSON.parse(localStorage.getItem('userInfo'))
+    ? JSON.parse(localStorage.getItem('userInfo'))
+    : '';
 
   const redirect = location.search ? location.search.split('=')[1] : '/';
 
   useEffect(() => {
-    if (token) {
+    if (userInfo) {
       history.push(redirect);
     }
-  }, [history, token, redirect]);
+  }, [history, userInfo, redirect]);
 
   return (
     <>

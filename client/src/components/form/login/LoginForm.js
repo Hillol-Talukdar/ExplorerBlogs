@@ -50,7 +50,7 @@ const LoginForm = () => {
           initialValues={{
             remember: true,
           }}
-          // onSubmit={submitHandler}
+          onSubmit={submitHandler}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
