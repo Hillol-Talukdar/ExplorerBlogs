@@ -5,6 +5,9 @@ import {
   COMMENT_DELETE_REQUEST,
   COMMENT_DELETE_SUCCESS,
   COMMENT_DELETE_FAIL,
+  COMMENT_UPDATE_REQUEST,
+  COMMENT_UPDATE_SUCCESS,
+  COMMENT_UPDATE_FAIL,
 } from '../constants/commentConstants';
 
 export const commentCreateReducer = (state = {}, action) => {
@@ -27,6 +30,19 @@ export const commentDeleteReducer = (state = {}, action) => {
     case COMMENT_DELETE_SUCCESS:
       return { loading: false, success: true };
     case COMMENT_DELETE_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const commentUpdateReducer = (state = {}, action) => {
+  switch (action.payload) {
+    case COMMENT_UPDATE_REQUEST:
+      return { loading: true };
+    case COMMENT_UPDATE_SUCCESS:
+      return { loading: false, success: true, comment: action.payload };
+    case COMMENT_UPDATE_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

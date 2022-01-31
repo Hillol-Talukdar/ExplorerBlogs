@@ -1,27 +1,43 @@
 import React, { useReducer } from 'react';
-import { Card, Modal } from 'antd';
+import { Card, Modal, Form, Input } from 'antd';
 import {
   EditOutlined,
   DeleteOutlined,
   ExclamationCircleOutlined,
 } from '@ant-design/icons';
 import './CommentSectionCard.css';
-import { deleteCommentApi } from '../../apis/commentApis';
-import { commentDeleteReducer } from '../../reducers/commentReducer';
+import { deleteMyCommentApi, updateMyCommentApi } from '../../apis/commentApis';
+import {
+  commentDeleteReducer,
+  commentUpdateReducer,
+} from '../../reducers/commentReducer';
 
 const initialState = {};
 
 const CommentSectionCard = ({ comment }) => {
+  const [form] = Form.useForm();
+
   const [state, dispatch] = useReducer(commentDeleteReducer, initialState);
-  const { lodaing, success, error } = state;
-  const { confirm } = Modal;
+  const [updateCommentState, updateCommentDispatch] = useReducer(
+    commentUpdateReducer,
+    initialState
+  );
 
   const userInfo = JSON.parse(localStorage.getItem('userInfo'))
     ? JSON.parse(localStorage.getItem('userInfo'))
     : '';
 
+  const onSubmit = () => {
+    form.validateFields().then((values) => {
+      updateMyCommentApi(
+        comment._id,
+        values.description
+      )(updateCommentDispatch);
+    });
+  };
+
   const deleteModal = () => {
-    confirm({
+    Modal.confirm({
       title: 'Are you sure to delete this comment?',
       icon: <ExclamationCircleOutlined />,
       okType: 'danger',
@@ -29,7 +45,39 @@ const CommentSectionCard = ({ comment }) => {
       cancelText: 'No',
 
       onOk() {
-        deleteCommentApi(comment._id)(dispatch);
+        deleteMyCommentApi(comment._id)(dispatch);
+      },
+
+      onCancel() {},
+    });
+  };
+
+  const updateModal = () => {
+    Modal.confirm({
+      title: 'Edit comment?',
+      icon: <ExclamationCircleOutlined />,
+      okText: 'Update',
+
+      content: (
+        <>
+          <Form name="CommentForm" className="m-3" form={form}>
+            <Form.Item
+              name="description"
+              rules={[
+                {
+                  required: true,
+                  message: 'Enter your comment...',
+                },
+              ]}
+            >
+              <Input.TextArea rows={4} defaultValue={comment.description} />
+            </Form.Item>
+          </Form>
+        </>
+      ),
+
+      onOk() {
+        onSubmit();
       },
 
       onCancel() {},
@@ -55,7 +103,7 @@ const CommentSectionCard = ({ comment }) => {
 
         {userInfo?._id === comment.author?._id && (
           <>
-            <EditOutlined id="commentEditIcon" />
+            <EditOutlined id="commentEditIcon" onClick={updateModal} />
 
             <span>&nbsp;&nbsp;</span>
 

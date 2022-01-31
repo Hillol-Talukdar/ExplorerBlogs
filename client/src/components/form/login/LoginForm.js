@@ -88,14 +88,23 @@ const LoginForm = () => {
           </Form.Item>
 
           <Form.Item>
-            <Button
-              id="loginFormSubmitButton"
-              //   type="primary"
-              className="d-grid gap-2 col-6 mx-auto"
-              htmlType="submit"
-            >
-              Log in
-            </Button>
+            {loading ? (
+              <Button
+                id="loginFormSubmitButton"
+                className="d-grid gap-2 col-6 mx-auto"
+                htmlType="submit"
+              >
+                Loading...
+              </Button>
+            ) : (
+              <Button
+                id="loginFormSubmitButton"
+                className="d-grid gap-2 col-6 mx-auto"
+                htmlType="submit"
+              >
+                Log in
+              </Button>
+            )}
           </Form.Item>
         </Form>
       </div>

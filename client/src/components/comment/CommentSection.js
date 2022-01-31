@@ -1,5 +1,5 @@
-import { Form, Button, Input, Descriptions } from 'antd';
 import React, { useContext, useReducer } from 'react';
+import { Form, Button, Input } from 'antd';
 import { Link } from 'react-router-dom';
 import { addCommentApi } from '../../apis/commentApis';
 import PostDetailsContext from '../../contexts/post/PostDetailsContext';
@@ -52,7 +52,7 @@ const CommentSection = () => {
             {userInfo ? (
               loading ? (
                 <Button id="commentSectionBtn" htmlType="submit">
-                  loading
+                  loading...
                 </Button>
               ) : (
                 <Button id="commentSectionBtn" htmlType="submit">
