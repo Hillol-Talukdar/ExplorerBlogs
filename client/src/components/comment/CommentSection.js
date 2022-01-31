@@ -23,7 +23,6 @@ const CommentSection = () => {
 
   const onFinish = (values) => {
     addCommentApi(values.description, post._id)(dispatch);
-    window.location.reload();
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -51,9 +50,15 @@ const CommentSection = () => {
 
           <Form.Item className="text-center">
             {userInfo ? (
-              <Button id="commentSectionBtn" htmlType="submit">
-                Post Comment
-              </Button>
+              loading ? (
+                <Button id="commentSectionBtn" htmlType="submit">
+                  loading
+                </Button>
+              ) : (
+                <Button id="commentSectionBtn" htmlType="submit">
+                  Post Comment
+                </Button>
+              )
             ) : (
               <Link to="/login">
                 <Button id="commentSectionBtn">Log in Post Comment</Button>

@@ -50,7 +50,7 @@ const updateMyComment = catchAsync(async (req, res, next) => {
 const deleteAComment = factory.deleteOneById(Comment);
 
 const deleteMyComment = catchAsync(async (req, res, next) => {
-    const comment = await Model.findOneAndRemove({
+    const comment = await Comment.findOneAndRemove({
         _id: req.params.id,
         author: req.user,
     });

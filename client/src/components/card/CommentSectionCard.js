@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import { Card, Modal } from 'antd';
 import {
   EditOutlined,
@@ -6,24 +6,32 @@ import {
   ExclamationCircleOutlined,
 } from '@ant-design/icons';
 import './CommentSectionCard.css';
+import { deleteCommentApi } from '../../apis/commentApis';
+import { commentDeleteReducer } from '../../reducers/commentReducer';
+
+const initialState = {};
 
 const CommentSectionCard = ({ comment }) => {
+  const [state, dispatch] = useReducer(commentDeleteReducer, initialState);
+  const { lodaing, success, error } = state;
+  const { confirm } = Modal;
+
   const userInfo = JSON.parse(localStorage.getItem('userInfo'))
     ? JSON.parse(localStorage.getItem('userInfo'))
     : '';
 
   const deleteModal = () => {
-    Modal.confirm({
+    confirm({
       title: 'Are you sure to delete this comment?',
       icon: <ExclamationCircleOutlined />,
       okType: 'danger',
       okText: 'Yes',
       cancelText: 'No',
+
       onOk() {
-        return new Promise((resolve, reject) => {
-          setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-        }).catch(() => console.log('Oops errors!'));
+        deleteCommentApi(comment._id)(dispatch);
       },
+
       onCancel() {},
     });
   };
@@ -51,7 +59,11 @@ const CommentSectionCard = ({ comment }) => {
 
             <span>&nbsp;&nbsp;</span>
 
-            <DeleteOutlined id="commentDeleteIcon" onClick={deleteModal} />
+            <DeleteOutlined
+              id="commentDeleteIcon"
+              onClick={deleteModal}
+              type="dashed"
+            />
           </>
         )}
       </Card>

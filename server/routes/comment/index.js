@@ -10,10 +10,13 @@ router
     .get(checkAuth, restrictTo('admin'), commentController.getAllComment);
 
 router
+    .route('/my/:id')
+    .patch(checkAuth, commentController.updateMyComment)
+    .delete(checkAuth, commentController.deleteMyComment);
+
+router
     .route('/:id')
     .get(commentController.getAComment)
-    .patch(checkAuth, commentController.updateMyComment)
-    .delete(checkAuth, restrictTo('admin'), commentController.deleteAComment)
-    .delete(checkAuth, commentController.deleteMyComment);
+    .delete(checkAuth, restrictTo('admin'), commentController.deleteAComment);
 
 module.exports = router;
